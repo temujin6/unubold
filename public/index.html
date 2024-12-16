@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users&Order</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="border">
+      <h1>Хэрэглэгч үүсгэх</h1>
+      <form action="/create" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required /><br /><br />
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required /><br /><br />
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          required
+        /><br /><br />
+        <button type="submit">нэмэх</button>
+      </form>
+      <h1>Хэрэглэгчийн мэдээлэл</h1>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>created_at</th>
+          </tr>
+        </thead>
+        <tbody id="data-table"></tbody>
+      </table>
+    </div>
+
+    <div class="border">
+      <h1>Захиалага үүсгэх</h1>
+      <form action="/createOrder" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required /><br /><br />
+
+        <label for="description">description:</label>
+        <input
+          type="text"
+          name="description"
+          id="description"
+          required
+        /><br /><br />
+        <label for="address">address:</label>
+        <input type="text" name="address" id="address" required /><br /><br />
+        <button type="submit">нэмэх</button>
+      </form>
+      <h1>Захиалагийн мэдээлэл</h1>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Address</th>
+            <th>created_at</th>
+          </tr>
+        </thead>
+        <tbody id="data-table-order"></tbody>
+      </table>
+    </div>
+
+    <script>
+      fetch("/user")
+        .then((response) => response.json())
+        .then((data) => {
+          const tableBody = document.getElementById("data-table");
+          data.forEach((row) => {
+            tableBody.innerHTML += `
+            <tr>
+              <td>${row.id}</td>
+              <td>${row.name}</td>
+              <td>${row.email}</td>
+              <td>${row.password}</td>
+              <td>${row.created_at}</td>
+            </tr>
+          `;
+          });
+        })
+        .catch((error) => console.error("aldaa garlaa", error));
+
+      fetch("/orders")
+        .then((response) => response.json())
+        .then((data) => {
+          const tableBody = document.getElementById("data-table-order");
+          data.forEach((row) => {
+            tableBody.innerHTML += `
+            <tr>
+              <td>${row.id}</td>
+              <td>${row.name}</td>
+              <td>${row.description}</td>
+              <td>${row.address}</td>
+              <td>${row.created_at}</td>
+            </tr>
+          `;
+          });
+        })
+        .catch((error) => console.error("aldaa garlaa", error));
+    </script>
+  </body>
+</html>
