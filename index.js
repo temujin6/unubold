@@ -9,7 +9,7 @@ const port = 8080;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Temvjin0606$",
+  password: "",
   database: "unubold",
 });
 
